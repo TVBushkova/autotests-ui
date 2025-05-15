@@ -1,1 +1,1 @@
-print("Hello, PyCharm and world!")
+print("Autotests")
