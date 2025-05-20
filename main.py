@@ -1,1 +1,1 @@
-print("Autotests-ui")
+print("Autotests-uipip install playwright")
