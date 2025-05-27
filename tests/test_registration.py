@@ -1,23 +1,23 @@
 from playwright.sync_api import Page, expect
+
+from fixtures.pages import dashboard_page
+from pages.registration_page import RegistrationPage
+from pages.dashboard_page import DashboardPage
 import pytest
 
 @pytest.mark.regression
 @pytest.mark.registration
-def test_successful_registration(chromium_page: Page):  # Создаем тестовую функцию
-    chromium_page.goto("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/auth/registration")
+@pytest.mark.parametrize(
+    "email, username, password",
+    [
+        ("user.name@gmail.com", "username", "password")
+    ]
+)
+def test_successful_registration(registration_page: RegistrationPage, dashboard_page: DashboardPage, email: str, username: str, password:str):  # Создаем тестовую функцию
+    registration_page.visit("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/auth/registration")
+    registration_page.fill_registration_form(email=email, username=username, password=password)
+    # Нажимаем кнопку "Registration"
+    registration_page.click_registration_button()
+    dashboard_page.visit("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/dashboard")
+    dashboard_page.check_dashboard_title()
 
-    email_input = chromium_page.locator('//div[@data-testid="registration-form-email-input"]//div//input')
-    email_input.fill("user.name@gmail.com")
-
-    username_input = chromium_page.locator('//div[@data-testid="registration-form-username-input"]//div//input')
-    username_input.fill("username")
-
-    password_input = chromium_page.locator('//div[@data-testid="registration-form-password-input"]//div//input')
-    password_input.fill("password")
-
-    registration_button = chromium_page.locator('//button[@data-testid="registration-page-registration-button"]')
-    registration_button.click()
-
-    dashboard_title = chromium_page.locator('//h6[@data-testid="dashboard-toolbar-title-text"]')
-    expect(dashboard_title).to_be_visible()
-    expect(dashboard_title).to_have_text("Dashboard")
