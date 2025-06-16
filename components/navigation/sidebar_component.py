@@ -1,4 +1,5 @@
 import re
+
 from playwright.sync_api import Page
 from components.base_component import BaseComponent
 from components.navigation.sidebar_list_item_component import SidebarListItemComponent
