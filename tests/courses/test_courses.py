@@ -48,7 +48,7 @@ class TestCourse:
         courses_list_page.toolbar_view.check_visible()
         courses_list_page.check_visible_empty_view()
 
-    def test_edit_course(self, create_course_page: CreateCoursePage, courses_list_page: CoursesListPage, ):
+    def test_edit_course(self, create_course_page: CreateCoursePage, courses_list_page: CoursesListPage):
         create_course_page.visit("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/courses/create")
 
         create_course_page.create_course_exercises_toolbar.click_create_exercise_button()
