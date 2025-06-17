@@ -1,4 +1,6 @@
-from playwright.sync_api import Page  # Импортируем класс Page
+from typing import Pattern
+
+from playwright.sync_api import Page, expect  # Импортируем класс Page
 
 class BasePage:
     # Конструктор класса, принимающий объект Page
@@ -10,3 +12,6 @@ class BasePage:
 
     def reload(self):
         self.page.reload(wait_until="networkidle")
+
+    def check_current_url(self, expected_url: Pattern[str]):
+        expect(self.page).to_have_url(expected_url)

@@ -1,3 +1,5 @@
+import re
+
 from playwright.sync_api import Page
 
 from components.authentication.registration_form_component import RegistrationFormComponent
@@ -22,4 +24,6 @@ class RegistrationPage(BasePage):
         # Метод для нажатия на ссылку "Login"
     def click_login_link(self):
         self.login_link.click()
+        # Добавили проверку
+        self.check_current_url(re.compile(".*/#/auth/login"))
 
