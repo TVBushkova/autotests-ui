@@ -1,11 +1,26 @@
 from pages.courses.create_course_page import CreateCoursePage
 from pages.courses.courses_list_page import CoursesListPage
+from tools.allure.tags import AllureTag
+from tools.allure.epics import AllureEpic # Импортируем enum AllureEpic
+from tools.allure.features import AllureFeature # Импортируем enum AllureFeature
+from tools.allure.stories import AllureStory # Импортируем enum AllureStory
+from allure_commons.types import Severity
 
 import pytest
+import allure
 
 @pytest.mark.courses
 @pytest.mark.regression
+@allure.tag(AllureTag.REGRESSION, AllureTag.COURSES)
+@allure.epic(AllureEpic.LMS) # Добавили epic
+@allure.feature(AllureFeature.COURSES) # Добавили feature
+@allure.story(AllureStory.COURSES) # Добавили story
+@allure.suite(AllureFeature.COURSES)
+@allure.parent_suite(AllureEpic.LMS)
+@allure.sub_suite(AllureStory.COURSES)
 class TestCourse:
+    @allure.title("Create course")
+    @allure.severity(Severity.CRITICAL)  # Добавили severity
     def test_create_course(self, create_course_page: CreateCoursePage, courses_list_page: CoursesListPage):
         create_course_page.visit("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/courses/create")
 
@@ -39,6 +54,8 @@ class TestCourse:
             index=0, title="Playwright", max_score="100", min_score="10", estimated_time="2 weeks"
         )
 
+    @allure.title("Check displaying of empty courses list")
+    @allure.severity(Severity.NORMAL)  # Добавили severity
     def test_empty_courses_list(self, courses_list_page: CoursesListPage):
         courses_list_page.visit("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/courses")
         # Добавили проверку Navbar компонента на странице Courses
@@ -48,6 +65,8 @@ class TestCourse:
         courses_list_page.toolbar_view.check_visible()
         courses_list_page.check_visible_empty_view()
 
+    @allure.title("Edit course")
+    @allure.severity(Severity.CRITICAL)  # Добавили severity
     def test_edit_course(self, create_course_page: CreateCoursePage, courses_list_page: CoursesListPage):
         create_course_page.visit("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/courses/create")
 
