@@ -7,6 +7,8 @@ from tools.allure.tags import AllureTag
 from tools.allure.epics import AllureEpic # Импортируем enum AllureEpic
 from tools.allure.features import AllureFeature # Импортируем enum AllureFeature
 from tools.allure.stories import AllureStory # Импортируем enum AllureStory
+from tools.roots import AppRoute
+
 
 @pytest.mark.dashboard
 @pytest.mark.regression
@@ -22,7 +24,7 @@ class TestDashboard:
     @allure.title("Check displaying of dashboard page")
     @allure.severity(Severity.NORMAL)  # Добавили severity
     def test_dashboard_displaying(self, dashboard_page_with_state: DashboardPage):
-        dashboard_page_with_state.visit("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/dashboard")
+        dashboard_page_with_state.visit(AppRoute.DASHBOARD)
 
         # Добавили проверку Navbar компонента на странице Dashboard
         dashboard_page_with_state.navbar.check_visible("username")
