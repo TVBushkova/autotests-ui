@@ -13,6 +13,5 @@ allure-report
 *.html
 *.json
 *.7z
-*.webm
 videos
 tracing
