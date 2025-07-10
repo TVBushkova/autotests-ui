@@ -1,5 +1,3 @@
-from multiprocessing.reduction import steal_handle
-
 import allure  # Импортируем allure
 from playwright.sync_api import Locator, expect
 
